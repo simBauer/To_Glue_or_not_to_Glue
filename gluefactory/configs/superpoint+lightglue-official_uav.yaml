@@ -1,0 +1,23 @@
+model:
+    name: two_view_pipeline
+    extractor:
+      name: gluefactory_nonfree.superpoint
+      max_num_keypoints: 2048
+      detection_threshold: 0.0
+      nms_radius: 3
+    matcher:
+      name: matchers.lightglue_pretrained
+      features: superpoint
+      depth_confidence: -1
+      width_confidence: -1
+      filter_threshold: 0.1
+benchmarks:
+    tum:
+        data:
+            pairs: tum_facade/pairs_uav.txt
+            preprocessing:
+                side: long
+                resize: 1600
+        eval:
+            estimator: opencv
+            ransac_th: 10.0

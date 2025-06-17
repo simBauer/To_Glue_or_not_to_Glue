@@ -1,0 +1,37 @@
+model:
+    name: two_view_pipeline
+    extractor:
+        name: extractors.sift
+        detector: opencv
+        max_num_keypoints: 2048
+        detection_threshold: 0.00666666
+        nms_radius: -1
+        rootsift: True
+    matcher:
+        name: matchers.flann_opencv
+        feature: sift
+benchmarks:
+    megadepth1500:
+        data:
+            preprocessing:
+                side: long
+                resize: 1600
+        eval:
+            estimator: opencv
+            ransac_th: -1
+    hpatches:
+        eval:
+            estimator: opencv
+            ransac_th: -1
+        model:
+            extractor:
+                max_num_keypoints: 1024  # overwrite config above
+    tum:
+        data:
+            preprocessing:
+                side: long
+                resize: 1600
+                create_mask: True
+        eval:
+            estimator: opencv
+            ransac_th: 10.0

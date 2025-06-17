@@ -1,0 +1,15 @@
+model:
+    name: two_view_pipeline
+    matcher:
+        name: matchers.kornia_loftr
+        topk: 2048
+benchmarks:
+    tum:
+        data:
+            pairs: tum_facade/pairs_uav.txt
+            preprocessing:
+                side: long
+                resize: 1024
+        eval:
+            estimator: opencv
+            ransac_th: 10.0

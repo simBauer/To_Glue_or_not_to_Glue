@@ -1,0 +1,35 @@
+model:
+    name: two_view_pipeline
+    extractor:
+        name: extractors.orb_opencv
+        max_num_keypoints: 2048
+    matcher:
+        name: matchers.nn_opencv
+        feature: orb
+        ratio_test: False
+        mutual_check: True
+benchmarks:
+    megadepth1500:
+        data:
+            preprocessing:
+                side: long
+                resize: 1600
+        eval:
+            estimator: opencv
+            ransac_th: -1
+    hpatches:
+        eval:
+            estimator: opencv
+            ransac_th: -1
+        model:
+            extractor:
+                max_num_keypoints: 1024  # overwrite config above
+    tum:
+        data:
+            preprocessing:
+                side: long
+                resize: 1600
+                create_mask: True
+        eval:
+            estimator: opencv
+            ransac_th: 10.0
