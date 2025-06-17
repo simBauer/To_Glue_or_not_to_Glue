@@ -1,0 +1,12 @@
+.venv
+.vscode
+/build/
+*.egg-info
+*.pyc
+/.idea/
+/venv/
+/data/hpatches-sequence-release
+/data/hpatches-sequences-release
+/data/megadepth1500
+/data/tum_facade/car
+__pycache__
