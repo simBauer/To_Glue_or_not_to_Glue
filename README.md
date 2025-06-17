@@ -5,6 +5,8 @@ Authors: Simone Gaisbauer, Prabin Gyawali
 This repository contains the code to reproduce our results presented at the 13th International Conference on Mobile Mapping Technology (MMT) in Xiamen, on June 20-22, 2025. It is the result of the project work Photogrammetry and Remote Sensing at TUM in the winter semester 2024/25. 
 > Citation to be added
 
+We will provide the UAV and car images soon.
+
 ## Credits for the code
 Our code is largely based on the repository [Glue Factory](https://github.com/cvg/glue-factory) (state 03.01.25) by the authors Philipp Lindenberger, Paul-Edouard Sarlin, Rémi Pautrat, and Iago Suárez. The following articles are associated with this repository:
 
@@ -70,7 +72,7 @@ We provide the 18 used UAV images in this repository to allow direct evaluation 
 
 #### Car images
 
-The 343 car-based images for our second dataset were provided by the company [3D Mapping Solutions]("https://www.3d-mapping.de/"). We publish them with their permission subject to [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) here: <a href="Add the download link">Mobile Mapping Images of TUM main campus</a> © 2025 by <a href="https://www.3d-mapping.de/">3D Mapping Solutions</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;">. In order to use the car images dataset for evaluation, please download the images from the link and paste them in the [respective folder](/data/tum_facade/car/). 
+The 343 car-based images for our second dataset were provided by the company [3D Mapping Solutions]("https://www.3d-mapping.de/"). We publish them with their permission subject to [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) here: <a href="Add the download link">Mobile Mapping Images of TUM main campus</a> © 2025 by <a href="https://www.3d-mapping.de/">3D Mapping Solutions</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. In order to use the car images dataset for evaluation, please download the images from the link and paste them in the [respective folder](/data/tum_facade/car/). 
 
 ## Run instructions
 
