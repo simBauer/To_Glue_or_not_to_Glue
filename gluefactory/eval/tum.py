@@ -1,7 +1,9 @@
-# Code for the evaluation of TUM dataset
-# - Code based on eval/megadepth1500.py from gluefactory (https://github.com/cvg/glue-factory)
+# Code for evaluation of TUM dataset
+# Based on eval/megadepth1500.py from gluefactory (https://github.com/cvg/glue-factory)
 
 import logging
+import zipfile
+import shutil
 from collections import defaultdict
 from collections.abc import Iterable
 from pathlib import Path
@@ -25,7 +27,6 @@ from .utils import eval_matches_projection, eval_poses, eval_absolute_pose_robus
 logger = logging.getLogger(__name__)
 
 
-# Function to convert pixel to intermediate coordinate system
 def pixel_to_st_coords(pix_coords, shape):
     W = shape.flatten()[0]
     H = shape.flatten()[1]
@@ -36,7 +37,6 @@ def pixel_to_st_coords(pix_coords, shape):
     return st_coords
 
 
-# Function to compute world coordinates from the pixels
 def get_world_coordinates_from_pixels(
         st_edges,
         xyz_edges, 
@@ -104,8 +104,48 @@ class TumFacadePipeline(EvalPipeline):
     optional_export_keys = []
 
     def _init(self, conf):
-        if not (DATA_PATH / "tum_facade").exists():
-            logger.info("No dataset found.")
+
+        match conf["data"]["pairs"]:
+            case "tum_facade/pairs.txt":
+                platform = "car"
+                url = "https://syncandshare.lrz.de/dl/fiCccWXga4tnwmrma2pS8z/car.dir"
+            case "tum_facade/pairs_uav.txt":
+                platform = "uav"
+                url = "https://zenodo.org/records/14548134/files/Images.zip?download=1"
+        data_path = DATA_PATH / "tum_facade" / platform
+
+        if not data_path.exists():
+            logger.info(f"Downloading the tum facade {platform} dataset.")        
+            zip_path = DATA_PATH / (platform + ".zip")
+            data_path.mkdir(exist_ok=True, parents=True)
+            torch.hub.download_url_to_file(url, zip_path)
+
+            if platform == "car":
+                zip_path.parent.mkdir(exist_ok=True, parents=True)
+                with zipfile.ZipFile(zip_path) as fid:
+                    fid.extractall(data_path)
+                zip_path.unlink()
+
+            if platform == "uav":
+                unzip_path = Path(str(zip_path).removesuffix(".zip"))
+                unzip_path.mkdir(parents=True, exist_ok=True)
+                with open(DATA_PATH / "tum_facade" / "pairs_uav.txt", "r") as f:
+                    uav_rel_paths = [Path(line.split()[1]) for line in f if line.strip()]
+                    uav_names = [path.name for path in uav_rel_paths]
+                
+                with zipfile.ZipFile(zip_path) as fid:
+                    for info in fid.infolist():
+                        if Path(info.filename).name in uav_names:
+                            fid.extract(info, unzip_path) 
+                zip_path.unlink()
+
+                for rel_path in uav_rel_paths:
+                    source_path = unzip_path / "Images" / rel_path.name
+                    target_path = DATA_PATH / "tum_facade" / rel_path
+                    target_path.parent.mkdir(exist_ok=True, parents=True)
+                    shutil.copy(source_path, target_path)
+                shutil.rmtree(unzip_path)
+
             
     @classmethod
     def get_dataloader(self, data_conf=None, pairs=None):
