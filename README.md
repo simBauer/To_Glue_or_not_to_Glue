@@ -3,9 +3,7 @@
 Authors: Simone Gaisbauer, Prabin Gyawali
 
 This repository contains the code to reproduce our results presented at the 13th International Conference on Mobile Mapping Technology (MMT) in Xiamen, on June 20-22, 2025. It is the result of the project work Photogrammetry and Remote Sensing at TUM in the winter semester 2024/25. 
-> Citation to be added
-
-We will provide the UAV and car images soon.
+> Gaisbauer, S., Gyawali, P., Zhang, Q., Wysocki, O., & Jutzi, B. (2025). To Glue or Not to Glue? Classical vs Learned Image Matching for Mobile Mapping Cameras to Textured Semantic 3D Building Models. arXiv preprint arXiv:2505.17973.
 
 ## Credits for the code
 Our code is largely based on the repository [Glue Factory](https://github.com/cvg/glue-factory) (state 03.01.25) by the authors Philipp Lindenberger, Paul-Edouard Sarlin, Rémi Pautrat, and Iago Suárez. The following articles are associated with this repository:
@@ -34,7 +32,11 @@ Our modifications concern the addition of the following methods and config files
 
 We also made minor modifications to make things run for our application, e.g. in the config structure such that it is compatible with our datasets and methods.
 
-Our second contribution is the addition of the TUM facade dataset. Our code for the custom evaluation for this dataset follows the Glue Factory code for image pair evaluation. We added the tum eval pipeline, the poses geometry, the robust estimator for the absolute pose, and a custom two-view plot.
+Our second contribution is the addition of the TUM facade dataset. Our code for the custom evaluation for this dataset follows the Glue Factory code for image pair evaluation. We added the following methods:
+- Tum evaluation pipeline
+- Geometry for absolute poses
+- Robust estimator for the absolute pose using OpenCV
+- Custom two-view plot for visualizing the projection error of the matches
 
 
 ### Further dependencies
@@ -52,11 +54,11 @@ Due to the restrictive licenses of the nonfree methods, we do not include this f
 
 ### Generic datasets
 
-We use the datasets HPatches and Megadepth1500 as provided by Glue Factory with a minor change of the HPatches download link following [this fix](https://github.com/cvg/glue-factory/pull/115/files). The datasets are automatically downloaded when running inspect or eval on them.
+We use the datasets HPatches and Megadepth1500 as provided by Glue Factory. The datasets are automatically downloaded when running inspect or eval on them.
 
 ### Custom TUM dataset
 
-We evaluate on two custom datsets facade texture - car image pairs and facade texture - UAV image pairs. The UAV and facade images are already included in this repository, whereas the car images are provided via a download link.
+We evaluate on two custom datsets facade texture - car image pairs and facade texture - UAV image pairs. The facade images are already included in this repository, whereas the car images and UAV images are automatically downloaded when running inspect or eval on them.
 
 #### Facade textures
 
@@ -66,13 +68,13 @@ We use facade texture images of LoD2 CityGML models from the [TUM2TWIN](https://
 
 #### UAV images
 
-We provide the 18 used UAV images in this repository to allow direct evaluation and visualization on them. The images and their information are taken from the photogrammetric UAV reconstruction from the [TUM2TWIN](https://tum2t.win/) project. The full datset is available [here](https://zenodo.org/records/14899378) and is subject to [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode). The associated publication is:
+We use a small subset of images from the photogrammetric UAV reconstruction from the [TUM2TWIN](https://tum2t.win/) project. The full datset is available [here](https://zenodo.org/records/14899378) and is subject to [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode). The associated publication is:
 
 > Anders, K., Wang, J., Wysocki, O., Huang, X., & Liu, S. (2025). UAV Laser Scanning and Photogrammetry of TUM Downtown Campus (1.1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.14899378
 
 #### Car images
 
-The 343 car-based images for our second dataset were provided by the company [3D Mapping Solutions]("https://www.3d-mapping.de/"). We publish them with their permission subject to [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) here: <a href="Add the download link">Mobile Mapping Images of TUM main campus</a> © 2025 by <a href="https://www.3d-mapping.de/">3D Mapping Solutions</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. In order to use the car images dataset for evaluation, please download the images from the link and paste them in the [respective folder](/data/tum_facade/car/). 
+The 343 car-based images for our second dataset were provided by the company [3D Mapping Solutions]("https://www.3d-mapping.de/"). We make them available with their permission under the followig license: Mobile Mapping Images of TUM main campus © 2025 by <a href="https://www.3d-mapping.de/">3D Mapping Solutions</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.
 
 ## Run instructions
 
