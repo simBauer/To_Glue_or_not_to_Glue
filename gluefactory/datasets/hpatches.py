@@ -1,7 +1,7 @@
 # Code from gluefactory (https://github.com/cvg/glue-factory)
 # -----------------------------------------------------------
 # Modified by Simone Gaisbauer: 
-# - Changed dataset download link following the fix in https://github.com/cvg/glue-factory/pull/115/files
+# - Changed dataset download link as in the recent fix https://github.com/cvg/glue-factory/pull/129
 # -----------------------------------------------------------
 
 """
@@ -60,7 +60,7 @@ class HPatches(BaseDataset, torch.utils.data.Dataset):
         "v_astronautis",
         "v_talent",
     )
-    url = "https://www.kaggle.com/api/v1/datasets/download/javidtheimmortal/hpatches-sequence-release"
+    url = "https://huggingface.co/datasets/vbalnt/hpatches/resolve/main/hpatches-sequences-release.zip"
 
     def _init(self, conf):
         assert conf.batch_size == 1
@@ -91,6 +91,7 @@ class HPatches(BaseDataset, torch.utils.data.Dataset):
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             # Extract all contents to a directory
             zip_ref.extractall(data_dir)
+        zip_path.unlink()
 
     def get_dataset(self, split):
         assert split in ["val", "test"]
